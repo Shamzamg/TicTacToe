@@ -4,12 +4,13 @@
 
 using namespace std;
 
-char grid[3][3] = {{'0','0','0'},{'0','0','0'},{'0','0','0'}};
+const char EMPTY = '-';
+char grid[3][3] = {{EMPTY, EMPTY, EMPTY},{EMPTY, EMPTY, EMPTY},{EMPTY, EMPTY, EMPTY}};
 char player = 'O';
 
 void showGrid(){
-    for(int i=0;i<3;i++){
-        for(int j=0;j<3;j++){
+    for(int i = 0; i < 3; i++){
+        for(int j = 0; j < 3; j++){
             cout << grid[i][j] << " ";
         }
         cout << endl;
@@ -18,17 +19,18 @@ void showGrid(){
 
 bool gameEnd(){
     int count = 0;
-    for(int i=0;i<3;i++){
-        for(int j=0;j<3;j++){
+    for(int i = 0; i < 3; i++){
+        for(int j = 0; j < 3; j++){
             if(grid[i][j] == player) count++;
         }
     }
-    return count==9;
+    return count == 9;
 }
 
 bool play(int move, char currentPlayer){
     if(move < 1 || move > 9){
         cout << "The move you chose was not in 1-9 range" << endl;
+        showGrid();
         return false;
     }
 
@@ -37,10 +39,11 @@ bool play(int move, char currentPlayer){
 
     //cout << i << " " << j  << " "<< endl;
 
-    if(grid[i][j] == '0') grid[i][j] = currentPlayer;
+    if(grid[i][j] == EMPTY) grid[i][j] = currentPlayer;
 
     else{
         cout << "The move you chose was already taken" << endl;
+        showGrid();
         return false;
     }
     return true;
@@ -49,15 +52,15 @@ bool play(int move, char currentPlayer){
 void play(){
     while(!gameEnd()){
         int move;
+        showGrid();
         cout << "Choose your move (integer 1-9)" << endl;
         cin >> move;
         //Tant que le choix de la case n'est pas bon
-        while(!play(move,player)){
+        while(!play(move, player)){
             cout << "Choose your move (integer 1-9)" << endl;
             cin >> move;
         }
-
-        showGrid();
+        //showGrid();
     }
     cout << "The game ended, the winner is ..." << endl;
 }
