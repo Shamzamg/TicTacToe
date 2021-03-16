@@ -27,8 +27,8 @@ bool gameEnd() {
     return count == 9;
 }
 
-bool play(int move, char currentPlayer){
-    if(move < 1 || move > 9){
+bool applyMove(int move, char currentPlayer) {
+    if(move < 1 || move > 9) {
         cout << "The move you chose was not in 1-9 range" << endl;
         return false;
     }
@@ -39,8 +39,7 @@ bool play(int move, char currentPlayer){
     //cout << i << " " << j  << " "<< endl;
 
     if(grid[i][j] == EMPTY) grid[i][j] = currentPlayer;
-
-    else{
+    else {
         cout << "The move you chose was already taken" << endl;
         return false;
     }
@@ -48,13 +47,13 @@ bool play(int move, char currentPlayer){
 }
 
 void play(){
-    while(!gameEnd()){
+    while(!gameEnd()) {
         int move;
         do {
             showGrid();
             cout << "Choose your move (integer 1-9)" << endl;
             cin >> move;
-        } while(!play(move, player)); // Tant que le choix de la case n'est pas bon.
+        } while(!applyMove(move, player)); // Tant que le choix de la case n'est pas bon.
     }
     cout << "The game ended, the winner is ..." << endl;
 }
