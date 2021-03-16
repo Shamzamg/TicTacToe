@@ -7,6 +7,7 @@ using namespace std;
 const char EMPTY = '-';
 char grid[3][3] = {{EMPTY, EMPTY, EMPTY},{EMPTY, EMPTY, EMPTY},{EMPTY, EMPTY, EMPTY}};
 char player = 'O';
+int index;
 
 void showGrid(){
     for(int i = 0; i < 3; i++){
@@ -60,7 +61,6 @@ void play(){
             cout << "Choose your move (integer 1-9)" << endl;
             cin >> move;
         }
-        //showGrid();
     }
     cout << "The game ended, the winner is ..." << endl;
 }
