@@ -46,19 +46,24 @@ bool applyMove(int move, char currentPlayer) {
     return true;
 }
 
-void play(){
+void play() {
     while(!gameEnd()) {
         int move;
         do {
             showGrid();
             cout << "Choose your move (integer 1-9)" << endl;
             cin >> move;
+            if(cin.fail()) { // Solution temporaire pour empêcher une boucle infinie si l'utilisateur entre un charactère.
+                cin.clear();
+                cin.ignore(1);
+                move = -1;
+            }
         } while(!applyMove(move, player)); // Tant que le choix de la case n'est pas bon.
     }
     cout << "The game ended, the winner is ..." << endl;
 }
 
-int main(){
+int main() {
 
     cout << "Choose between circle or cross (type O for the circle and X for the cross)" << endl;
     cin >> player;
