@@ -20,7 +20,8 @@ void showGrid() {
     }
 }
 
-bool boardFull(){
+//returns whether the grid is full or not
+bool gridFull(){
     int count = 0;
     for(int i = 0; i < 3; i++) {
         for(int j = 0; j < 3; j++) {
@@ -30,6 +31,8 @@ bool boardFull(){
     return count == 9;
 }
 
+
+//print who's the winner, only called once the game is done
 void checkWinner(char winner){
     if(winner == player){
         cout << "You won ! " << endl;
@@ -74,7 +77,7 @@ char winner(string condition){
         return grid[2][0];
     }
 
-    if(boardFull()){
+    if(gridFull()){
         if(condition == "verifMode")
             checkWinner('-');
         return 'draw';
@@ -161,6 +164,7 @@ int minimax(bool tag){
 }
 
 bool gameEnd() {
+    //if there is a winner
     if(winner("verifMode") != NULL){
         showGrid();
         return true;
@@ -202,23 +206,24 @@ void choosePlayer(){
 
 void play() {
 
+    //At first, you choose whether you're going to pick 'O' or 'X'.
     choosePlayer();
 
     while(!gameEnd()) {
-        //the player then plays
+        //the player plays
         int move;
         do {
             showGrid();
             cout << "Choose your move (integer 1-9)" << endl;
             cin >> move;
-            if(cin.fail()) { // Solution temporaire pour empêcher une boucle infinie si l'utilisateur entre un charactère.
+            if(cin.fail()) { // check to avoid while loops and errors
                 cin.clear();
                 cin.ignore(1);
                 move = -1;
             }
-        } while(!applyMove(move, player)); // Tant que le choix de la case n'est pas bon.
+        } while(!applyMove(move, player)); // while the input is incorrect
 
-        //on verifie si la partie est finie
+        //check if the game is done after the player played
         if(gameEnd()){
             break;
         }
